@@ -10,8 +10,8 @@
 	</parent>
 
 	<modules>
-		<module>../module-base</module>
 		<module>../grpc-parent</module>
+		<module>../springboot-example</module>
 	</modules>
 
 	<groupId>com.home.example</groupId>
@@ -20,6 +20,18 @@
 	<packaging>pom</packaging>
 	<name>parent</name>
 	<description>父工程</description>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<version>2.1.4.RELEASE</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
 	<url>https://github.com/wumingsheng/example</url>
 	<inceptionYear>2019</inceptionYear>
@@ -50,55 +62,6 @@
 			<email>wu_mingsheng@126.com</email>
 		</developer>
 	</developers>
-
-
-
-
-
-	<properties>
-		<java.version>11</java.version>
-		<maven.compiler.source>11</maven.compiler.source>
-		<maven.compiler.target>11</maven.compiler.target>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
-
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-dependencies</artifactId>
-				<version>2.1.4.RELEASE</version>
-				<type>pom</type>
-				<scope>provided</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
-
-	<build>
-		<pluginManagement>
-			<plugins>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-compiler-plugin</artifactId>
-					<configuration>
-						<source>11</source>
-						<target>11</target>
-						<encoding>UTF-8</encoding>
-					</configuration>
-				</plugin>
-			</plugins>
-		</pluginManagement>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-			</plugin>
-		</plugins>
-
-	</build>
-
-
-
 
 
 

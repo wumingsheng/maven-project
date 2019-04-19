@@ -1,0 +1,135 @@
+server:
+  port: ${univer_port}
+
+grpc:
+  port: ${univer_grpc_port}
+
+spring:
+  application:
+    name: service-time
+  datasource:
+    url: ${univer_datasource_url}
+    username: ${univer_datasource_name}
+    password: ${univer_datasource_password}
+    driverClassName: com.mysql.jdbc.Driver
+    hikari:
+      connection-timeout: 30000
+      idle-timeout: 300000
+      max-lifetime: 300000
+      maximum-pool-size: 50
+      minimum-idle: 10
+  messages:
+    basename: message/base/messages,message/validation/messages,message/business/messages
+    encoding: UTF-8
+  mvc:
+    throw-exception-if-no-handler-found: true
+    favicon:
+      enabled: false
+    date-format: yyyy-MM-dd HH:mm:ss
+  aop:
+    auto: true
+    proxy-target-class: true
+  resources:
+    add-mappings: false
+  redis:
+    database: ${univer_redis_database}
+    host: ${univer_redis_host}
+    port: ${univer_redis_port}
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  boot:
+    admin:
+      client:
+        url: http://service-monitor:9091
+        instance:
+          prefer-ip: true
+  quartz:
+    jdbc:
+      initialize-schema: never
+      schema: classpath:org/quartz/impl/jdbcjobstore/tables_mysql_innodb.sql
+    job-store-type: jdbc
+    properties:
+      org:
+        quartz:
+          jobStore:
+            class: org.quartz.impl.jdbcjobstore.JobStoreTX
+            clusterCheckinInterval: 20000
+            dataSource: quartz
+            driverDelegateClass: org.quartz.impl.jdbcjobstore.StdJDBCDelegate
+            isClustered: true
+            misfireThreshold: 60000
+            tablePrefix: QRTZ_
+            txIsolationLevelReadCommitted: true
+            useProperties: true
+          scheduler:
+            instanceId: AUTO
+            instanceName: DefaultQuartzScheduler
+            rmi:
+              export: false
+              proxy: false
+            skipUpdateCheck: true
+            startupDelay: 10
+            wrapJobExecutionInUserTransaction: false
+          threadPool:
+            class: org.quartz.simpl.SimpleThreadPool
+            threadCount: 10
+            threadPriority: 5
+            threadsInheritContextClassLoaderOfInitializingThread: true
+          
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.univer.*.po
+  configuration:
+    map-underscore-to-camel-case: true
+    use-column-label: true
+    use-generated-keys: true
+
+mapper:
+  mappers: com.univer.base.mapper.BaseMapper
+  not-empty: false
+  identity: MYSQL
+  
+#分页插件
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+
+#服务停止
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    shutdown:
+      enabled: true
+    restart:
+      enabled: true
+
+#日志控制
+logging:
+  root: /opt/service/log
+  config: classpath:service-logback.xml
+  file: /opt/service/log/${spring.application.name}/${spring.application.name}.info.log
+  
+  
+  
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
