@@ -1,6 +1,6 @@
 ## 架构图
 
-
+![](dependencies.png)
 
 
 ## eclipse视图
